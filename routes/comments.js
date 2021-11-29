@@ -1,5 +1,4 @@
 const {Comment, validateComment} = require('../model/comment');
-const Comment = require('../model/comment');
 const express = require('express');
 const router = express.Router();
 
@@ -12,16 +11,7 @@ router.post('/', async (req, res) => {
 
         const comment = new Comment({
             videoId: req.body.videoId,
-            text: req.body.text ,
-            likes: req.body.likes,
-            dislikes: req.body.dislikes,
-            replies: req.body.replies
-        });
-        comment = new Comment({
-            videoID: '=JGwWNGJdvx8',
-            text: 'hotdogs',
-            likes: 4,
-            dislikes: 3, 
+            text: req.body.text
         });
 
         await comment.save();
@@ -32,13 +22,15 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:videoId', async (req, res) => {
     try {
    
-    const comment = await Comment.findById(req.params.id);
-    if (!comment)
-    return res.status(400).send(`The product with id "${req.params.Id}" does not exist.`);
-    return res.send(comment);
+    const comments = await Comment.find({videoId: req.params.videoId});
+    if (!comments){
+        return res.status(400).send(`The product with id "${req.params.videoId}" does not exist.`);
+    }
+        
+    return res.send(comments);
     } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
     }
@@ -46,13 +38,12 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        const { error } = validateComment(req.body);
+        const { error } = Comment(req.body);
         if (error) return res.status(400).send(error);
 
         const comment = await Comment.findByIdAndUpdate(
             req.params.id,
             {
-                text: req.body.text,
                 likes: req.body.likes,
                 dislikes: req.body.dislikes,
                 replies: req.body.replies
@@ -70,4 +61,23 @@ router.put('/:id', async (req, res) => {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 });
+router.delete('/:id', async (req, res) => {
+    try {
+   
+    const comment = await Comment.findByIdAndRemove(req.params.id);
+    if (!comment){
+        return res.status(400).send(`The product with id "${req.params.id}" does not exist.`, comment);
+    }
+    }
+    catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+    return res.send("Comment deleted.")
+});
+
+
+
+
+
+
 module.exports = router;

@@ -2,21 +2,18 @@ const mongoose = require('mongoose');
 const joi = require('joi');
 const replySchema = new mongoose.Schema(
     {
-        commentId: {type: String},
+        commentId: {type: String, required: true},
         text: { type: String, required: true},
-        likes: {type: Number, default: 0},
-        dislikes: {type: Number, default: 0}
+        likes: {type: Number, default: 0, required: true},
+        dislikes: {type: Number, default: 0, required: true},
     }
 )
 const commentSchema = new mongoose.Schema(
     {
-<<<<<<< HEAD
-=======
-        videoId: {type: String,},
->>>>>>> 8a13d7e565cc6162b8500a83a269fd716557ee68
+        videoId: {type: String, required: true},
         text: { type: String, required: true},
-        likes: {type: Number, default: 0},
-        dislikes: {type: Number, default: 0},
+        likes: {type: Number, default: 0, required: true},
+        dislikes: {type: Number, default: 0, required: true},
         replies: {type: [replySchema], default: []}
     }
 )
@@ -25,10 +22,6 @@ function validateComment(comment) {
     const schema = joi.object({
         videoId: joi.string().required(),
         text: joi.string().required(),
-        likes: joi.number().default(0),
-        dislikes: joi.number().default(0),
-
-     
     });
     return schema.validate(comment);
 } 
@@ -36,10 +29,7 @@ function validateComment(comment) {
 function validateReply(reply) {
     const schema = joi.object({
         text: joi.string().required(),
-        likes: joi.number().default(0),
-        dislikes: joi.number().default(0)
-     
-    })
+    });
     return schema.validate(reply);
 }
 
