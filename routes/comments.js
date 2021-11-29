@@ -1,4 +1,4 @@
-const comment = require('../model/comment');
+const Comment = require('../model/comment');
 const express = require('express');
 const router = express.Router();
 
@@ -6,11 +6,10 @@ router.post('/', async (req, res) => {
     try {
 
         comment = new Comment({
-            videoId: 'adfadfadf',
+            videoID: '=JGwWNGJdvx8',
             text: 'hotdogs',
             likes: 4,
             dislikes: 3, 
-            replies: 1,
         });
 
         await comment.save();
