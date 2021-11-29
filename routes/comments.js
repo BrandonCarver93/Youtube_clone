@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 const {Comment, validateComment} = require('../model/comment');
+=======
+const Comment = require('../model/comment');
+>>>>>>> 8a13d7e565cc6162b8500a83a269fd716557ee68
 const express = require('express');
 const router = express.Router();
 
@@ -8,12 +12,20 @@ router.post('/', async (req, res) => {
     if (error)
        return res.status(400).send(error);
 
+<<<<<<< HEAD
         const comment = new Comment({
             videoId: req.body.videoId,
             text: req.body.text ,
             likes: req.body.likes,
             dislikes: req.body.dislikes,
             replies: req.body.replies
+=======
+        comment = new Comment({
+            videoID: '=JGwWNGJdvx8',
+            text: 'hotdogs',
+            likes: 4,
+            dislikes: 3, 
+>>>>>>> 8a13d7e565cc6162b8500a83a269fd716557ee68
         });
 
         await comment.save();

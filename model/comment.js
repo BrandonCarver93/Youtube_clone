@@ -10,6 +10,10 @@ const replySchema = new mongoose.Schema(
 )
 const commentSchema = new mongoose.Schema(
     {
+<<<<<<< HEAD
+=======
+        videoId: {type: String,},
+>>>>>>> 8a13d7e565cc6162b8500a83a269fd716557ee68
         text: { type: String, required: true},
         likes: {type: Number, default: 0},
         dislikes: {type: Number, default: 0},
