@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
-
+const Joi = require('joi');
 const replySchema = new mongoose.Schema(
     {
+        commentId: {type: String},
+        text: {type: String, required: true},
         likes: {type: Number, default: 0, required: true},
         dislikes: {type: Number, default: 0, required: true},
     }
@@ -17,16 +19,16 @@ const commentSchema = new mongoose.Schema(
 )
 
 function validateComment(comment) {
-    const schema = joi.object({
-        videoId: joi.string().required(),
-        text: joi.string().required(),
+    const schema = Joi.object({
+        videoId: Joi.string().required(),
+        text: Joi.string().required(),
     });
     return schema.validate(comment);
 } 
 
 function validateReply(reply) {
-    const schema = joi.object({
-        text: joi.string().required(),
+    const schema = Joi.object({
+        text: Joi.string().required(),
     });
     return schema.validate(reply);
 }
