@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const joi = require('joi');
+
 const replySchema = new mongoose.Schema(
     {
-        commentId: {type: String, required: true},
+        commentId: {type: String},
         text: { type: String, required: true},
         likes: {type: Number, default: 0, required: true},
         dislikes: {type: Number, default: 0, required: true},
@@ -10,7 +10,7 @@ const replySchema = new mongoose.Schema(
 )
 const commentSchema = new mongoose.Schema(
     {
-        videoId: {type: String, required: true},
+        videoId: {type: String},
         text: { type: String, required: true},
         likes: {type: Number, default: 0, required: true},
         dislikes: {type: Number, default: 0, required: true},

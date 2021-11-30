@@ -1,4 +1,4 @@
-const {Comment, validateComment} = require('../model/comment');
+const {Comment, validateComment, validateReply, Reply} = require('../model/comment');
 const express = require('express');
 const router = express.Router();
 
@@ -75,7 +75,17 @@ router.delete('/:id', async (req, res) => {
     return res.send("Comment deleted.")
 });
 
-
+router.post('/:commentId/replies', async (req, res) => {
+    try{
+        let comment = await Comment.findById(req.params.commentId);
+        let reply = new Reply(req.body);
+        comment.replies.push(reply);
+        await comment.save();
+        return res.send(comment);
+    } catch (exception){
+        console.log('Internal Server Error', exception);
+    }
+});
 
 
 
