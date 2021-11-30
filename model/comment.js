@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 
 const replySchema = new mongoose.Schema(
     {
-        commentId: {type: String},
-        text: { type: String, required: true},
         likes: {type: Number, default: 0, required: true},
         dislikes: {type: Number, default: 0, required: true},
     }
@@ -38,7 +36,6 @@ const Comment = mongoose.model('Comment', commentSchema);
 
 // module.exports = validateReply;
 // module.exports = validateComment;
-
 
 exports.Comment = Comment;
 exports.validateComment = validateComment;

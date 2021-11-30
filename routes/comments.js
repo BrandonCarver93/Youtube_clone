@@ -9,10 +9,12 @@ router.post('/', async (req, res) => {
        return res.status(400).send(error);
 
 
-        const comment = new Comment({
+        const comment = new Comment(
+            {
             videoId: req.body.videoId,
-            text: req.body.text
-        });
+            text: req.body.text,
+            replies: []
+            });
 
         await comment.save();
 
@@ -86,7 +88,6 @@ router.post('/:commentId/replies', async (req, res) => {
         console.log('Internal Server Error', exception);
     }
 });
-
 
 
 
